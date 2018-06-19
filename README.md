@@ -13,7 +13,7 @@ An elasticsearch datatables prototype that can be forked and customised to provi
 
 1. Search - comes back with records
 2. Details - Record details are displayed in the datatable 
-3. More details - are displayed on clicking individual records
+3. Drill down - More details are displayed by clicking individual records
 
 ### Search
 
@@ -29,6 +29,8 @@ An elasticsearch datatables prototype that can be forked and customised to provi
 
 
 ## Building
+
+Ensure that you have access to the repositories hosting the dependencies mentioned in the pom.xml
 
 mvn clean package
 
@@ -67,11 +69,11 @@ curl -X PUT "localhost:9200/test/doc/3" -H 'Content-Type: application/json' -d'
 
 ```
 
-3. Import project to Intellij and run EldApplication
+3. Import project to Intellij and run EldApplication 
 
 TODO: Run from command line
 
-4. Navigate to http://localhost:8080 to see the user interface
+4. Navigate to http://localhost:8080 to see and interact with the user interface
 
 ## Debugging
 
@@ -82,7 +84,7 @@ Run the EldApplicaton in debug mode
 
 Fork the repo and customise to your needs.
 
-In most cases you only have to change 1 file (application.properties)
+**In most cases you only have to change 1 file (application.properties) to include the search paths **
 
 ### Configuration
 1. URL pointing to elastic search cluster index ( application.properties )
