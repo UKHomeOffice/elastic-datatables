@@ -38,7 +38,7 @@ mvn clean package
 
 1. Start an elastcsearch docker container
 
-sudo docker run -p 9200:9200 -it --rm --name elasticsearch elasticsearch
+docker run -p 9200:9200 -it --rm --name elasticsearch elasticsearch
 
 2. Post a few msgs to elasticsearch using curl
 
