@@ -32,28 +32,37 @@ An elasticsearch datatables prototype that can be forked and customised to provi
 
 Ensure that you have access to the repositories hosting the dependencies mentioned in the pom.xml
 
+```shell
 mvn clean package
+```
 
 ## Testing
 
 1. Start an elastcsearch docker container
 
+```shell
 docker run -p 9200:9200 -it --rm --name elasticsearch elasticsearch
+```
 
 2. Post test data to elasticsearch using curl
 
-```curl
+```shell
 cd testdata
 curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/test/account/_bulk?pretty' --data-binary @accounts.json
 ```
 
-3. Import project to Intellij and run EldApplication 
+3. Run EldApplication 
+
+```shell
+java -jar target/elastic-datatables-0.0.1-SNAPSHOT.jar
+```
 
 4. Navigate to http://localhost:8080 to see and interact with the user interface
 
+
 ## Debugging
 
-Run the EldApplicaton in debug mode
+Run the EldApplicaton in debug mode in IDE
 
 
 ## Customisation
@@ -74,7 +83,6 @@ Fork the repo and customise to your needs.
 
 ## TODs
 
-1. Run from command line
-2. Implement ordering
-3. Add shas to all javascript files
-4. Column names from application.properties file
+1. Implement ordering
+2. Add shas to all javascript files
+3. Column names from application.properties file
