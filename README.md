@@ -5,8 +5,8 @@ An elasticsearch datatables prototype that can be forked and customised to provi
 ## Components
 
 1. Spring Boot
-2. Bootstrap  https://getbootstrap.com/
-3. Datatables https://datatables.net/
+2. Bootstrap
+3. Datatables
 4. Custom code 
 
 ## Flow
