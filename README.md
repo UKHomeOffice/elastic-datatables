@@ -71,8 +71,6 @@ curl -X PUT "localhost:9200/test/doc/3" -H 'Content-Type: application/json' -d'
 
 3. Import project to Intellij and run EldApplication 
 
-TODO: Run from command line
-
 4. Navigate to http://localhost:8080 to see and interact with the user interface
 
 ## Debugging
@@ -96,3 +94,10 @@ Fork the repo and customise to your needs.
 2. Tailor the ElasticResultSetProvider to match your needs
 3. Change the application.properties file to point to your index
 4. Change the application.properties file to use your format "properties1"..
+
+## TODs
+
+1. Run from command line
+2. Implement ordering
+3. Increase cache size
+4. Add shas to all javascript files
