@@ -101,3 +101,4 @@ Fork the repo and customise to your needs.
 2. Implement ordering
 3. Increase cache size
 4. Add shas to all javascript files
+5. Column names from application.properties file
