@@ -40,33 +40,11 @@ mvn clean package
 
 docker run -p 9200:9200 -it --rm --name elasticsearch elasticsearch
 
-2. Post a few msgs to elasticsearch using curl
+2. Post test data to elasticsearch using curl
 
 ```curl
-curl -X PUT "localhost:9200/test/doc/1" -H 'Content-Type: application/json' -d'
-{
-    "user" : "kimchy",
-    "post_date" : "2009-11-15T14:12:12",
-    "message" : "trying out Elasticsearch"
-}
-'
-
-curl -X PUT "localhost:9200/test/doc/2" -H 'Content-Type: application/json' -d'
-{
-    "user" : "kimchy",
-    "post_date" : "2009-11-15T14:12:12",
-    "message" : "trying out datatables"
-}
-'
-
-curl -X PUT "localhost:9200/test/doc/3" -H 'Content-Type: application/json' -d'
-{
-    "user" : "kimchy",
-    "post_date" : "2009-11-15T14:12:12",
-    "message" : "trying out Elastic datatables"
-}
-'
-
+cd testdata
+curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/test/account/_bulk?pretty' --data-binary @accounts.json
 ```
 
 3. Import project to Intellij and run EldApplication 
@@ -86,19 +64,17 @@ Fork the repo and customise to your needs.
 
 ### Configuration
 1. URL pointing to elastic search cluster index ( application.properties )
-2. Generic Query Json (matchAll.json)
-3. Specific Query Json (matchTerm.json)
+2. Change the application.properties file to use your format "properties1"..
+3. Generic Query Json (matchAll.json)
+4. Specific Query Json (matchTerm.json)
 
 ### Code
 1. Tailor the index.html to match your needs 
 2. Tailor the ElasticResultSetProvider to match your needs
-3. Change the application.properties file to point to your index
-4. Change the application.properties file to use your format "properties1"..
 
 ## TODs
 
 1. Run from command line
 2. Implement ordering
-3. Increase cache size
-4. Add shas to all javascript files
-5. Column names from application.properties file
+3. Add shas to all javascript files
+4. Column names from application.properties file

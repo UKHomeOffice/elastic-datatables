@@ -1,3 +1,5 @@
+.idea/
+elastic-datatables.iml
 target/
 pom.xml.tag
 pom.xml.releaseBackup

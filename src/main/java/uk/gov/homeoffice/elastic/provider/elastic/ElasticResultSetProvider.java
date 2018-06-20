@@ -18,7 +18,7 @@ import java.util.*;
 @Component
 public class ElasticResultSetProvider implements ResultSetProvider<Record> {
 
-    private LRUCache<String, Record> cache = new LRUCache<>(1000);
+    private LRUCache<String, Record> cache = new LRUCache<>(10000);
 
     @Autowired
     ElasticRequest elasticRequest;
