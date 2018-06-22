@@ -1,6 +1,6 @@
 # elastic-datatables
 
-An elasticsearch datatables prototype that can be forked and customised to provide search functionality on elastic indexes
+An elasticsearch datatables component that can be forked and customised to provide search functionality on elastic indexes
 
 ## Components
 
@@ -62,7 +62,7 @@ java -jar target/elastic-datatables-0.0.1-SNAPSHOT.jar
 
 ## Debugging
 
-Run the EldApplicaton in debug mode in IDE
+Run the EldApplication in debug mode in IDE
 
 
 ## Customisation
@@ -81,7 +81,7 @@ Fork the repo and customise to your needs.
 1. Tailor the index.html to match your needs 
 2. Tailor the ElasticResultSetProvider to match your needs
 
-## TODs
+## TODO's
 
 1. Implement ordering
 2. Add shas to all javascript files
