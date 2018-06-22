@@ -1,6 +1,8 @@
 # elastic-datatables
 
-An elasticsearch datatables component that can be forked and customised to provide search functionality on elastic indexes
+An elasticsearch datatables component that can be forked and customised to provide search functionality on elastic indexes.
+
+So if you have many indexes storing data in many different json formats you could fork the code, customise **one property file** and start analysing the data.
 
 ## Components
 
