@@ -8,7 +8,7 @@ So if there are many indexes storing data in different json formats, fork the co
 
 1. Spring Boot
 2. Bootstrap
-3. Datatables
+3. DataTables
 4. Custom code 
 
 ## Flow
@@ -87,4 +87,3 @@ Fork the repo and customise to your needs.
 
 1. Implement ordering
 2. Add shas to all javascript files
-3. Column names from application.properties file

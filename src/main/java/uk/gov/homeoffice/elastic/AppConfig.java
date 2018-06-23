@@ -19,7 +19,6 @@ public class AppConfig {
     @Bean
     public ElasticConfig elasticConfig() {
         return new ElasticConfig();
-
     }
 
     @Bean

@@ -55,23 +55,6 @@
         <div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1 main" id="mainSection">
             <div class="table-responsive">
                 <table id="table" style="width:100%">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Property 1</th>
-                        <th>Property 2</th>
-                        <th>Property 3</th>
-                        <th>Property 4</th>
-                        <th>Property 5</th>
-                        <th>Property 6</th>
-                        <th>Property 7</th>
-                        <th>Property 8</th>
-                        <th>Property 9</th>
-                        <th>Property 10</th>
-                        <th>Property 11</th>
-                        <th>Property 12</th>
-                    </tr>
-                    </thead>
                 </table>
             </div>
 
@@ -108,30 +91,46 @@
 
     function format ( d ) {
         $.getJSON( "/record/" + d, function( data ) {
-
-          /* alert(d); */
-
           var items = [];
           $.each( data, function( key, val ) {
               if(val){
                   items.push( "<tr><td>" + val + "</td></tr>" );
               }
           });
-
           var rec = $( "<table/>", {
             "class": "item-record",
               html: items.join( "" )
           });
-
-
           $("#leftNavSection").html(rec);
-
           $('#myModal').modal('show');
-
         });
     }
 
-    $( document ).ready(function() {
+    function doTable(){
+        var dataTable = $('#table');
+        $.getJSON( "/columns", function( data ) {
+            var columns="";
+            var count = 0;
+            $( data ).each( function( index, element ){
+                columns += "<th>" + element + "</th>";
+                count += 1;
+            });
+            $("<thead>" + columns + "</thead>").appendTo(dataTable);
+
+            doTableBody(columnArray(count));
+        });
+    }
+
+    function columnArray(count){
+        var cols = [];
+        cols.push({ "className": "details-control", "orderable": false, "data": null, "defaultContent": "" });
+        for (i = 1; i < count; i++) {
+            cols.push({ name: 'property' + i , data: 'property' + i });
+        }
+        return cols;
+    }
+
+    function doTableBody(cols){
         var oTable = $('#table').dataTable({
           processing: true,
           serverSide: true,
@@ -143,62 +142,7 @@
                   return JSON.stringify(d);
               }
           },
-          columns: [
-              {
-                  "className":      'details-control',
-                  "orderable":      false,
-                  "data":           null,
-                  "defaultContent": ''
-              },
-              {
-                  name: 'property1',
-                  data: 'property1'
-              },
-              {
-                  name: 'property2',
-                  data: 'property2'
-              },
-              {
-                  name: 'property3',
-                  data: 'property3'
-              },
-              {
-                  name: 'property4',
-                  data: 'property4'
-              },
-              {
-                  name: 'property5',
-                  data: 'property5'
-              },
-              {
-                  name: 'property6',
-                  data: 'property6'
-              },
-              {
-                  name: 'property7',
-                  data: 'property7'
-              },
-              {
-                  name: 'property8',
-                  data: 'property8'
-              },
-              {
-                  name: 'property9',
-                  data: 'property9'
-              },
-              {
-                  name: 'property10',
-                  data: 'property10'
-              },
-              {
-                  name: 'property11',
-                  data: 'property11'
-              },
-              {
-                  name: 'property12',
-                  data: 'property12'
-              }
-          ],
+          columns: cols,
           "order": [[1, 'asc']]
       });
 
@@ -218,7 +162,10 @@
           format(row);
        } );
 
+    }
 
+    $( document ).ready(function() {
+        doTable();
     });
 
 </script>

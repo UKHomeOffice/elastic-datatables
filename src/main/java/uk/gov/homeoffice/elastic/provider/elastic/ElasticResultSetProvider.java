@@ -12,6 +12,7 @@ import uk.gov.homeoffice.elastic.provider.LRUCache;
 import uk.gov.homeoffice.elastic.provider.ResultSetProvider;
 
 import javax.annotation.PostConstruct;
+import java.lang.reflect.Field;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -28,7 +29,10 @@ public class ElasticResultSetProvider implements ResultSetProvider<Record> {
 
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public ElasticResultSetProvider() {
+
+    @Override
+    public List<String> getColumns() {
+        return elasticConfig.columns();
     }
 
     @Override
@@ -87,12 +91,16 @@ public class ElasticResultSetProvider implements ResultSetProvider<Record> {
             return l;
         }
 
+        Map<String, String> queryMap = elasticConfig.queryMap();
+
+        int noProperties = queryMap.size();
+
         JSONArray ja = JsonPath.read(json, "$.hits.hits[*]");
         int length = ja.size();
         for (int i = 0; i < length; i++) {
             String frag = "$.hits.hits[" + i + "]";
             Map<String, Object> record = new HashMap<>();
-            for (Map.Entry<String, String> qm : elasticConfig.queryMap().entrySet()) {
+            for (Map.Entry<String, String> qm : queryMap.entrySet()) {
                 if(!StringUtils.isEmpty(qm.getValue())) {
                     String value = frag + qm.getValue();
                     record.put(qm.getKey(), JsonPath.read(json, value));
@@ -106,21 +114,25 @@ public class ElasticResultSetProvider implements ResultSetProvider<Record> {
 
         for (Map<String, Object> m : dataExtract) {
             Record record = new Record();
-            record.setProperty1(convert(m.get("property1")));
-            record.setProperty2(convert(m.get("property2")));
-            record.setProperty3(convert(m.get("property3")));
-            record.setProperty4(convert(m.get("property4")));
-            record.setProperty5(convert(m.get("property5")));
-            record.setProperty6(convert(m.get("property6")));
-            record.setProperty7(convert(m.get("property7")));
-            record.setProperty8(convert(m.get("property8")));
-            record.setProperty9(convert(m.get("property9")));
-            record.setProperty10(convert(m.get("property10")));
-            record.setProperty11(convert(m.get("property11")));
-            record.setProperty12(convert(m.get("property12")));
+
+            for(int i=1; i <= noProperties; i++){
+                String property = "property"+i;
+                setField(record, property, convert(m.get(property)));
+            }
+
             l.put(record.getProperty1(), record);
         }
         return l;
+    }
+
+    private void setField(Record record, String name, String value){
+        try {
+            Field field = record.getClass().getDeclaredField(name);
+            field.setAccessible(true);
+            field.set(record, value);
+        }catch (Exception e){
+            //TODO
+        }
     }
 
     //TODO cover more types
@@ -136,21 +148,5 @@ public class ElasticResultSetProvider implements ResultSetProvider<Record> {
             return rec;
         }
         return o.toString();
-    }
-
-    public ElasticRequest getElasticRequest() {
-        return elasticRequest;
-    }
-
-    public void setElasticRequest(ElasticRequest elasticRequest) {
-        this.elasticRequest = elasticRequest;
-    }
-
-    public ElasticConfig getElasticConfig() {
-        return elasticConfig;
-    }
-
-    public void setElasticConfig(ElasticConfig elasticConfig) {
-        this.elasticConfig = elasticConfig;
     }
 }

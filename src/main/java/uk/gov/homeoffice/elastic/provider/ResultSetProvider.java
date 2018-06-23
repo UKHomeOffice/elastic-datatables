@@ -3,7 +3,15 @@ package uk.gov.homeoffice.elastic.provider;
 import uk.gov.homeoffice.elastic.dataTableModel.DataTablesSearch;
 import uk.gov.homeoffice.elastic.model.ResultSet;
 
+import java.util.List;
+
 public interface ResultSetProvider<T> {
+
+    /**
+     *
+     * @return
+     */
+    List<String> getColumns();
 
     /**
      * Search for records

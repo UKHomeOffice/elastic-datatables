@@ -80,4 +80,16 @@ public class DataController {
         return data;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/columns", method = RequestMethod.GET)
+    public List<String> columns() {
+        //get the data from the backend
+        List<String> l = dataProvider.getColumns();
+        List<String> cols = new ArrayList<>();
+        //the first column is reference to get more detail about the row
+        cols.add("Ref");
+        cols.addAll(l);
+        return cols;
+    }
+
 }
