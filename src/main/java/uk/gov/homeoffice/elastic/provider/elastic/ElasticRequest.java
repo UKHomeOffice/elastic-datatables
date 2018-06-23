@@ -44,6 +44,7 @@ public class ElasticRequest {
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost(searchUrl);
         request.setEntity(new StringEntity(json));
+        request.addHeader("content-type", "application/json");
         request.addHeader("accept", "application/json");
         HttpResponse response = client.execute(request);
         return IOUtils.toString(response.getEntity().getContent());
